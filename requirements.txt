@@ -1,0 +1,7 @@
+ipykernel
+roboflow
+python-dotenv
+ultralytics 
+supervision
+pyqt6
+tensorboard
