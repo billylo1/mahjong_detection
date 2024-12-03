@@ -36,3 +36,7 @@ To run the inference, use:
 ```bash
 python predict.py -i sample.jpg
 ```
+
+## Results
+![Screenshot from 2024-12-03 11-36-49](https://github.com/user-attachments/assets/5addf5f9-607a-4740-8aa3-2b6675907f70)
+![Screenshot from 2024-12-03 11-52-10](https://github.com/user-attachments/assets/1f8f2d8d-2b3a-4f88-bcd9-7675fab418ab)
