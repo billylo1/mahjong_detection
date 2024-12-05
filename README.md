@@ -37,6 +37,16 @@ To run the inference, use:
 python predict.py -i sample.jpg
 ```
 
+## Finding a winning hand
+RANSAC is used to find the most likely winning hand. As the minimum number of tiles for winning is 14, and assuming that the image contains at most 10 non winning hand, we can calculate the number of iterations needed for the RANSAC algorithm, i.e.,
+$k = \frac{log(1-p)}{log(1-w^n)}$ where $p=0.99, w=14/24, n=4$. For images containing too many detections, it is simply assumed that the winning hand is located in the lower half of the image to minimize the number of outliers.
+
+To run the inference with enablign the locate winning hand feature, run:
+```bash
+python predict.py -i sample.jpg --find_winning_hand
+```
+
 ## Results
+![image](https://github.com/user-attachments/assets/f418dad4-de94-41ab-9de1-2ef6a25e3665)
 ![Screenshot from 2024-12-03 11-36-49](https://github.com/user-attachments/assets/5addf5f9-607a-4740-8aa3-2b6675907f70)
 ![Screenshot from 2024-12-03 11-52-10](https://github.com/user-attachments/assets/1f8f2d8d-2b3a-4f88-bcd9-7675fab418ab)
