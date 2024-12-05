@@ -5,8 +5,10 @@ from PIL import Image
 
 from ultralytics import YOLO
 import supervision as sv
+import numpy as np
 
 from utils import get_latest_model_path, LABEL_MAPPING
+from locate_winning_hand import WinningHandLocator
 
 
 class Predictor:
@@ -47,21 +49,29 @@ class Predictor:
 
         return annotated_image
 
-    def predict_image(self, image_path: Path) -> Image.Image:
+    def predict_image(self, image_path: Path, find_winning_hand: bool) -> Image.Image:
         if not image_path.is_file():
             raise FileNotFoundError(f"Image file {image_path} does not exist.")
         image = Image.open(str(image_path))
 
         # predict and draw results on the image.
-        results = self.model(
-            image,
-            conf=0.3,
-            imgsz=1024,
-            agnostic_nms=True,
-        )[0]
-        return self.draw_results_on_image(
+        results = self.model(image, conf=0.3, imgsz=1024, agnostic_nms=True)[0]
+
+        result_image = self.draw_results_on_image(
             image, sv.Detections.from_ultralytics(results)
         )
+
+        if find_winning_hand:
+            locator = WinningHandLocator(results)
+            wh = locator.find_winning_hand()
+
+            if wh:
+                print(wh)
+                result_image = locator.plot_winning_hand(np.array(result_image))
+            else:
+                print("No winning hand found.")
+
+        return result_image
 
 
 if __name__ == "__main__":
@@ -90,11 +100,12 @@ if __name__ == "__main__":
         default="/usr/share/fonts/opentype/noto/NotoSansCJK-Black.ttc",  # Path to a chinese font
         help="font path for label text.",
     )
+    parser.add_argument("--find_winning_hand", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
 
     # predict and draw results on the image.
     predictor = Predictor(
         model_path=args.model, font_size=args.font_size, font_path=args.font_path
     )
-    result_img = predictor.predict_image(Path(args.in_path))
+    result_img = predictor.predict_image(Path(args.in_path), args.find_winning_hand)
     sv.plot_image(result_img)

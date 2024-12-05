@@ -3,50 +3,8 @@ from pathlib import Path
 from typing import Dict, Tuple, List
 from dataclasses import dataclass
 
-ori_names = [
-    "f1",
-    "f2",
-    "f3",
-    "f4",
-    "f5",
-    "f6",
-    "f7",
-    "f8",
-    "m1",
-    "m2",
-    "m3",
-    "m4",
-    "m5",
-    "m6",
-    "m7",
-    "m8",
-    "m9",
-    "s1",
-    "s2",
-    "s3",
-    "s4",
-    "s5",
-    "s6",
-    "s7",
-    "s8",
-    "s9",
-    "t1",
-    "t2",
-    "t3",
-    "t4",
-    "t5",
-    "t6",
-    "t7",
-    "t8",
-    "t9",
-    "z1",
-    "z2",
-    "z3",
-    "z4",
-    "z5",
-    "z6",
-    "z7",
-]
+from utils import LABEL_ID
+
 coco_names = [
     "t1",
     "t2",
@@ -94,7 +52,7 @@ class ImageMetadata:
 
 def convert_class(coco_class: int) -> int:
     # map coco class to mahjong
-    return ori_names.index(coco_names[coco_class])
+    return LABEL_ID.index(coco_names[coco_class])
 
 
 def to_yolo_bbox(
