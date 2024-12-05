@@ -47,6 +47,6 @@ python predict.py -i sample.jpg --find_winning_hand
 ```
 
 ## Results
-![image](https://github.com/user-attachments/assets/f418dad4-de94-41ab-9de1-2ef6a25e3665)
+![image](https://github.com/user-attachments/assets/29a2820b-682d-4124-b7b7-5a18c4c0779d)
 ![Screenshot from 2024-12-03 11-36-49](https://github.com/user-attachments/assets/5addf5f9-607a-4740-8aa3-2b6675907f70)
 ![Screenshot from 2024-12-03 11-52-10](https://github.com/user-attachments/assets/1f8f2d8d-2b3a-4f88-bcd9-7675fab418ab)
