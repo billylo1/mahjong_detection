@@ -118,13 +118,13 @@ class WinningHandLocator:
         if self.winning_hand is None or self.best_model is None:
             raise ValueError("No winning hand found.")
 
-        x1, x2 = 0, img.shape[1]
-        # from normalize to normal
-        m = self.best_model.m * img.shape[0] / img.shape[1]
-        c = self.best_model.c * img.shape[0]
-        y1, y2 = int(m * x1 + c), int(m * x2 + c)
+        centers = self.winning_hand.centers.copy()
+        centers[:, 0] *= img.shape[1]
+        centers[:, 1] *= img.shape[0]
 
-        cv2.line(img, (x1, y1), (x2, y2), (255, 0, 0), 2)
+        cv2.polylines(
+            img, [centers.astype(np.int32).reshape(-1, 1, 2)], False, (255, 0, 0), 3
+        )
 
         return Image.fromarray(img)
 
