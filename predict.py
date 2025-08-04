@@ -97,7 +97,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--font_path",
         type=str,
-        default="/usr/share/fonts/opentype/noto/NotoSansCJK-Black.ttc",  # Path to a chinese font
+        default="/System/Library/Fonts/Hiragino Sans GB.ttc",  # Path to a chinese font for macOS
         help="font path for label text.",
     )
     parser.add_argument("--find_winning_hand", action=argparse.BooleanOptionalAction)
